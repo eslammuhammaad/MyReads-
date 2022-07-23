@@ -3,8 +3,10 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import Book from "./books";
 import { search } from "./BooksAPI";
+
 const Search = (props) => {
   const [query, setquery] = useState("");
+
   const [searchedBooks, setsearchedBooks] = useState([]);
 
   const searchbooksresult = (query) => {
@@ -13,6 +15,22 @@ const Search = (props) => {
       setsearchedBooks(searchBooks);
     });
   };
+
+  const updatSearchededBooks =
+    searchedBooks &&
+    searchedBooks.length > 0 &&
+    searchedBooks.map((searchBook) => {
+      props.books.map((homeBook) => {
+        if (homeBook.id === searchBook.id) {
+          searchBook.shelf = homeBook.shelf;
+        }
+        return homeBook;
+      });
+      if (!searchBook.shelf) {
+        searchBook.shelf = "none";
+      }
+      return searchBook;
+    });
 
   return (
     <div className="search-books">
@@ -31,9 +49,9 @@ const Search = (props) => {
       </div>
       <div className="search-books-results">
         <ol className="books-grid">
-          {searchedBooks &&
-            searchedBooks.length > 0 &&
-            searchedBooks.map((book) => (
+          {updatSearchededBooks &&
+            updatSearchededBooks.length > 0 &&
+            updatSearchededBooks.map((book) => (
               <Book key={book.id} book={book} onChange={props.changeshelf} />
             ))}
         </ol>

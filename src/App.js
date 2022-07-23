@@ -67,7 +67,10 @@ function App() {
           </div>
         }
       />
-      <Route path="/search" element={<Search changeshelf={changeshelf} />} />
+      <Route
+        path="/search"
+        element={<Search books={books} changeshelf={changeshelf} />}
+      />
     </Routes>
   );
 }
