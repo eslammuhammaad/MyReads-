@@ -27,7 +27,7 @@ const Search = (props) => {
         return homeBook;
       });
       if (!searchBook.shelf) {
-        searchBook.shelf = "none";
+        searchBook.shelf = "x";
       }
       return searchBook;
     });

@@ -7,7 +7,6 @@ import Search from "./search";
 
 function App() {
   let [books, setbooks] = useState([]);
-  let [switcher, setswitcher] = useState([false]);
 
   useEffect(() => {
     const getBooks = async () => {
@@ -17,16 +16,16 @@ function App() {
 
     getBooks();
   }, []);
+
   const changeshelf = (book, shelf) => {
-    if (books.includes(book)) {
+    const newBooks = books.filter((mainBook) => mainBook.id !== book.id);
+    update(book, shelf).then(() => {
       book.shelf = shelf;
-    } else {
-      books.push(book);
-      book.shelf = shelf;
-    }
-    update(book, shelf);
-    setbooks(books);
-    setswitcher(!switcher);
+      if (book.shelf != "none") {
+        newBooks.push(book);
+      }
+      setbooks(newBooks);
+    });
   };
 
   return (

@@ -20,7 +20,9 @@ const Book = (props) => {
           <ShelfChanger book={props.book} onChange={props.onChange} />
         </div>
         <div className="book-title">{props.book.title}</div>
-        <div className="book-authors">{props.book.authors}</div>
+        <div className="book-authors">
+          {props.book.authors && props.book.authors.join()}
+        </div>
       </div>
     </li>
   );
